@@ -1,5 +1,16 @@
 package burger_shop;
 
 public class Bread {
-    String bread = "rye";
+
+    // property
+
+    private String name;
+
+    // constructor
+
+    public Bread(String name) {
+        this.name = name;
+    }
+
+
 }
