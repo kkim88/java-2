@@ -1,62 +1,77 @@
 package burger_shop;
 
-public class Burger {
+import java.util.ArrayList;
+
+abstract public class Burger {
 
     // properties
 
-    private String name;
-    private String bread;
-    private String meat;
-    private double price;
-
-    private String topping1Name;
-    private Double topping1Price;
-
-    private String topping2Name;
-    private Double topping2Price;
+    String bread; // type of bread
+    String meat; // type of meat
+    String name; // name of burger (Plain, Healthy, Deluxe)
+    final ArrayList<String> possibleToppings; // valid toppings for burger type
+    ArrayList<String> burgerToppings; // ArrayList of current toppings for a burger
+    final int maxToppings; // maximum toppings a burger can have
+    final double plainPrice; // price of a plain burger without toppings
+    final double basePrice; // base price for burger type
+    final double toppingPrice; // total price of added toppings
 
     // constructor
 
-    public Burger(String name, String bread, String meat, double price) {
+    Burger(String name, String bread, String meat, ArrayList<String> toppings, ArrayList<String> burgerToppings,
+           int maxToppings, double basePrice) {
         this.name = name;
-        this.bread = bread;
-        this.meat = meat;
-        this.price = price;
-    }
 
-    // toppings methods
+        // bread input
 
-    public void addBurgerTopping1(String name, double price) {
-        this.topping1Name = name;
-        this.topping1Price = price;
-    }
-
-    public void addBurgerTopping2(String name, double price) {
-        this.topping2Name = name;
-        this.topping2Price = price;
-    }
-
-    // total price method
-
-    public double totalBurgerPrice() {
-        double burgerPrice = this.price;
-        System.out.println(this.name + " burger on a " + this.bread + " roll and " +this.meat + " patty is: $" + this.price);
-        if (this.topping1Name != null) {
-            burgerPrice += this.topping1Price;
-            System.out.println("Plus " + this.topping1Name + " + $" + this.topping1Price);
+        if (burger_shop.Bread.bread.contains(bread)) {
+            this.bread = bread;
+        }
+        else {
+            throw new Error(bread + " is not an option. Options are " + burger_shop.Bread.bread + ".");
         }
 
-        if (this.topping2Name != null) {
-            burgerPrice += this.topping2Price;
-            System.out.println("Plus " + this.topping2Name + ": + $" + this.topping2Price);
-        }
+        // meat input
 
-        return burgerPrice;
+        if (burger_shop.Meat.meat.contains(meat)) {
+            this.meat = meat;
+        }
+        else {
+            throw new Error(meat + " is not an option. Options are " + burger_shop.Meat.meat + ".");
+        }
+        this.possibleToppings = toppings;
+        this.burgerToppings = burgerToppings;
+        this.maxToppings = maxToppings;
+        this.basePrice = basePrice;
+        this.plainPrice = 5.00;
+        this.toppingPrice = 0.15;
     }
 
-    // method to return plain burger with no toppings
+    // method to return price of a plain burger
 
-    public double plainBurgerPrice() {
-        return this.price;
+    double plainBurgerPrice() {
+        return this.plainPrice;
+    }
+
+    // method to return price per topping
+
+    double getPerToppingPrice() {
+        return this.toppingPrice;
+    }
+
+    // method to return total burger price
+
+    double totalBurgerPrice() {
+        return this.basePrice + (this.toppingPrice * this.burgerToppings.size());
+    }
+    void showBurger() {
+        if (burgerToppings.size() > 0) {
+            System.out.println(name + "burger with " + bread + " bread, a " + meat + " patty and " + burgerToppings +
+                    " toppings is: $" + totalBurgerPrice() + ".");
+        }
+        else {
+            System.out.println(name + " burger with " + bread + " bread, a " + meat + " patty and no toppings is: $"
+                    + totalBurgerPrice() + ".");
+        }
     }
 }

@@ -1,16 +1,14 @@
 package burger_shop;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Side {
 
-    // properties
+    // ArrayList of available sides
 
-    private String name;
-    private double price;
+    static final ArrayList<String> side = new ArrayList(Arrays.asList("fries", "chips", "apple slices", "pie", "ice cream"));
 
-    // constructor
+    // There's no requirement that sides need to have a price, therefore, all sides are free. Even if you order 3.
 
-    public Side(String name, double price) {
-        this.name = name;
-        this.price = price;
-    }
 }
