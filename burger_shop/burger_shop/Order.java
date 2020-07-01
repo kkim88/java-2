@@ -65,7 +65,7 @@ public class Order {
             System.out.println("Error: No burger exists.");
         }
         else {
-            burger_shop.Burger burger = this.burger.get((burgerToppings.size())); // unsure of why get() cannot be resolved
+            Burger burger = this.burger.get((burgerToppings.size() == 1 ? 0 : selectBurger(toppings))); // example code for testing, does not work because it needs selectBurger etc. don't want to copy
             if (burger.burgerToppings.size() + toppings.length > burger.maxToppings) {
                 System.out.println("You can only put " + burger.maxToppings + " toppings on your " + burger.name + ".");
             }
